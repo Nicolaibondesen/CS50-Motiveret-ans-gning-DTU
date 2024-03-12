@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset ="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            restaurants
+        </title>
+        <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+            <div id="restaurants-list"></div>
+            <div id="map" style="height: 400px; width: 100%;"></div>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCogtTevh7aqrCrjmXP7Ib6InlB0FGVys4&callback=initMap" async defer></script>
+</body>
+</html>
+<script>
+
+
+            document.addEventListener("DOMContentLoaded", function(){
+
+                fetchRestaurants();
+
+                initMap();
+
+            });
+            function fetchRestaurants(){
+                fetch("/api/restaurants")
+                .then(response => response.json())
+                .then(restaurants => displayRestaurants(restaurants))
+                .catch(error => console.error("error fetching restaurants:", error));
+            }
+
+
+
+            function displayRestaurants(restaurants) {
+                const restaurantsList = document.getElementById("restaurants-list");
+
+                restaurants.forEach(restaurant => {
+                    const restaurantElement= document.createElement("div");
+                    restaurantElement.classList.add("restaurant");
+
+                    const nameElement = document.createElement("h3");
+                    nameElement.textContent = restaurant.name;
+                    restaurantElement.appendChild(nameElement);
+
+                    const dishesList = document.createElement("ul");
+                    restaurant.dishes.forEach(dish => {
+                        const dishElement = document.createElement("li");
+                        dishElement.textContent = dish;
+                        dishesList.appendChild(dishElement);
+                    });
+
+                    restaurantElement.appendChild(dishesList);
+                    restaurantsList.appendChild(restaurantElement);
+
+
+
+                });
+
+            }
+
+
+            function initMap(){
+
+                const restaurants =[
+                    {name: "Restaurant A", location: {lat:55.676098, lng:12.568337}},
+                    {name: "Restaurant B", location: {lat:55.676098, lng:12.568337}}
+                ];
+
+
+
+                const mapOptions = {
+
+                    center: {lat:55.676098, lng:12.568337},
+                    zoom: 10,
+                };
+                const map= new google.maps.Map(document.getElementById("map"), mapOptions);
+
+                restaurants.forEach(restaurant => {
+                    const marker = new google.maps.Marker({
+                        position: restaurant.location,
+                        map: map,
+                        title: restaurant.name,
+
+                    });
+                });
+            }
+</script>
+</html>
