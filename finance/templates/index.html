@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+   Index
+{% endblock %}
+
+{% block main %}
+<form action="/index" method="post">
+  <table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-start">Symbol</th>
+            <th class="text-start">Name</th>
+            <th class="text-end">Shares</th>
+            <th class="text-end">Price</th>
+            <th class="text-end">Total Value</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for stock in database %}
+        <tr>
+            <th class="text-start">{{ stock["symbol"] }}</th>
+            <th class="text-start">{{ stock["name"] }}</th>
+            <th class="text-end">{{ stock["shares"] }}</th>
+            <th class="text-end">{{ stock["price"] | usd }}</th>
+            <th class="text-end">{{ stock["total"] | usd }}</th>
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+    <tfoot>
+        <tr>
+            {% for row in users %}
+
+            <td colspan="4">Cash</td>
+            <td>{{ row["cash"] | usd }}</td>
+        </tr>
+        <tr>
+            <td colspan="4" >TOTAL value</td>
+            <td>{{ total_value | usd }}</td>
+
+            {% endfor %}
+        </tr>
+    </tfoot>
+</form>
+</table>
+</div>
+{% endblock %}

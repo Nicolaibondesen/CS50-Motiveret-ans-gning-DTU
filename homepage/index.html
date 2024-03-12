@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset ="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            Nicolai Bondesen
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <style>
+            body{
+                background-color: orange;
+
+            }
+            .centered
+            {
+                text-align:center;
+            }
+            .large
+            {
+
+
+                font-size: large;
+                margin: 0 auto;
+            }
+            .medium
+            {
+                font-size: medium;
+            }
+            .quiz
+            {
+                max-width: 1000px;
+                margin: 0 auto;
+                background-color: pink;
+
+            }
+            h2
+            {
+                color: red;
+
+            }
+
+            button
+
+            {
+                color: white;
+                cursor: pointer;
+
+            }
+            button:hover
+            {
+                text-decoration: underline;
+            }
+
+            .result{
+                text-align:center;
+                font-size: 70px;
+                color: green;
+                animation: animate
+                2s linear infinite;
+            }
+            @keyframes animate {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1.0;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+            </style>
+
+    </head>
+        <body class = "centered">
+        <Header class = "large text-center">Hello, world</header>
+        <div class = "container">
+           <main class = "medium text-center"> This is my homepage <main>
+        </div>
+        <h2 class = "medium text-center"> This is a little Quiz about myself lol</h2>
+
+        <form id="quiz-form">
+            <div class= "text-centered">
+
+            <h1 class = "quiz"> Question 1: What is my name?</h1>
+                <input type="radio" id ="q1_a" name ="q1" value="a"><label for="q1_a" >Carsten</label>
+                <input type="radio" id ="q1_b" name ="q1" value="b"><label for="q1_b" >Nicolai</label>
+                <input type="radio" id ="q1_c" name ="q1" value="c"><label for="q1_c" >Jan</label>
+                <input type="radio" id ="q1_d" name ="q1" value="d"><label for="q1_d" >Frank</label>
+            </div>
+            <div class= "text-centered">
+            <h1 class = "quiz"> Question 2: What is the meaning of life?</h1>
+                <input type="radio" id ="q2_a" name ="q2" value="a"><label for="q2_a" >This homepage</label>
+                <input type="radio" id ="q2_b" name ="q2" value="b"><label for="q2_b" >Programming</label>
+                <input type="radio" id ="q2_c" name ="q2" value="c"><label for="q2_c" >42</label>
+                <input type="radio" id ="q2_d" name ="q2" value="d"><label for="q2_d" >rock'n'roll</label>
+            </div>
+            <div class= "text-centered">
+            <h1 class = "quiz"> Question 3: Where do i live?</h1>
+                <input type="radio" id ="q3_a" name ="q3" value="a"><label for="q3_a" >Austria</label>
+                <input type="radio" id ="q3_b" name ="q3" value="b"><label for="q3_b" >Germany</label>
+                <input type="radio" id ="q3_c" name ="q3" value="c"><label for="q3_c" >USA</label>
+                <input type="radio" id ="q3_d" name ="q3" value="d"><label for="q3_d" >Denmark</label>
+            </div>
+                <button type="submit" class="btn btn-primary">Submit Quiz</button>
+            </form>
+                <div class = "result text-centered" id="result"></div>
+
+
+                <script>
+
+            document.getElementById ('quiz-form').addEventListener('submit', function(e) { e.preventDefault();
+
+            const answer = {
+                q1: document.querySelector('input[name="q1"]:checked').value,
+                q2: document.querySelector('input[name="q2"]:checked').value,
+                q3: document.querySelector('input[name="q3"]:checked').value
+            };
+
+            const correctAnswer = {
+                q1: 'b',
+                q2: 'c',
+                q3: 'd'
+            };
+
+            let score = 0;
+            for(let key in answer){
+                if(answer[key]===correctAnswer[key]){
+                    score++;
+                }
+            }
+            let result= '';
+            if (score === 3) {
+                result = "U did it!, all answers are correct!";
+            } else {
+                result = "Try again!";
+            }
+            document.getElementById('result').innerHTML=result;
+
+            });
+
+    </script>
+    </body>
+</html>

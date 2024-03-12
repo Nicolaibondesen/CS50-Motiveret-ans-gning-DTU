@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+   History
+{% endblock %}
+
+{% block main %}
+<form action="/history" method="POST"></form>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-start">Type</th>
+            <th class="text-start">Symbol</th>
+            <th class="text-start">Shares</th>
+            <th class="text-end">Price</th>
+            <th class="text-end">Total</th>
+            <th class="text-end">Timestamp</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in transactions %}
+        <tr>
+            <td class="text-start">{{ row["type"] }}</td>
+            <td class="text-start">{{ row["symbol"] }}</td>
+            <td class="text-start">{{ row["shares"] }}</td>
+            <td class="text-end">{{ row["price"] | usd }}</td>
+            <td class="text-end">{{ (row["shares"]*row["price"]) | usd }}</td>
+            <td class="text-end">{{ row["timestamp"] }}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
